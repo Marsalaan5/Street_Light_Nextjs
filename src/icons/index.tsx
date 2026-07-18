@@ -51,8 +51,16 @@ import HorizontaLDots from "./horizontal-dots.svg";
 import ChatIcon from "./chat.svg";
 import MoreDotIcon from "./more-dot.svg";
 import BellIcon from "./bell.svg";
+import MapIcon from "./map-pin.svg";
+import ReportIcon from "./reports.svg"
+import LightIcon from "./light.svg"
+import ControlIcon from "./control.svg"
 
 export {
+  ControlIcon,
+  LightIcon,
+  ReportIcon,
+  MapIcon,
   DownloadIcon,
   BellIcon,
   MoreDotIcon,

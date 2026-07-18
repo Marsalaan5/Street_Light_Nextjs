@@ -6,6 +6,7 @@ import { useState } from "react";
 import { MoreDotIcon } from "@/icons";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
+import { motion } from "framer-motion";
 
 export default function DemographicCard() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,8 +19,34 @@ export default function DemographicCard() {
     setIsOpen(false);
   }
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const rowVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { type: "spring", stiffness: 100 },
+    },
+  };
+
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] sm:p-6">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] sm:p-6"
+    >
       <div className="flex justify-between">
         <div>
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
@@ -54,6 +81,7 @@ export default function DemographicCard() {
           </Dropdown>
         </div>
       </div>
+
       <div className="px-4 py-6 my-6 overflow-hidden border border-gary-200 rounded-2xl bg-gray-50 dark:border-gray-800 dark:bg-gray-900 sm:px-6">
         <div
           id="mapOne"
@@ -64,9 +92,13 @@ export default function DemographicCard() {
       </div>
 
       <div className="space-y-5">
-        <div className="flex items-center justify-between">
+        {/* USA Row */}
+        <motion.div 
+          variants={rowVariants}
+          className="flex items-center justify-between"
+        >
           <div className="flex items-center gap-3">
-            <div className="items-center w-full rounded-full max-w-8">
+            <div className="items-center w-full rounded-full max-w-8 overflow-hidden border border-gray-100 dark:border-gray-800">
               <Image
                 width={48}
                 height={48}
@@ -86,18 +118,27 @@ export default function DemographicCard() {
           </div>
 
           <div className="flex w-full max-w-[140px] items-center gap-3">
-            <div className="relative block h-2 w-full max-w-[100px] rounded-sm bg-gray-200 dark:bg-gray-800">
-              <div className="absolute left-0 top-0 flex h-full w-[79%] items-center justify-center rounded-sm bg-brand-500 text-xs font-medium text-white"></div>
+            <div className="relative block h-2 w-full max-w-[100px] rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: "79%" }}
+                transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+                className="absolute left-0 top-0 h-full rounded-full bg-brand-500"
+              />
             </div>
             <p className="font-medium text-gray-800 text-theme-sm dark:text-white/90">
               79%
             </p>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="flex items-center justify-between">
+        {/* France Row */}
+        <motion.div 
+          variants={rowVariants}
+          className="flex items-center justify-between"
+        >
           <div className="flex items-center gap-3">
-            <div className="items-center w-full rounded-full max-w-8">
+            <div className="items-center w-full rounded-full max-w-8 overflow-hidden border border-gray-100 dark:border-gray-800">
               <Image
                 width={48}
                 height={48}
@@ -117,15 +158,20 @@ export default function DemographicCard() {
           </div>
 
           <div className="flex w-full max-w-[140px] items-center gap-3">
-            <div className="relative block h-2 w-full max-w-[100px] rounded-sm bg-gray-200 dark:bg-gray-800">
-              <div className="absolute left-0 top-0 flex h-full w-[23%] items-center justify-center rounded-sm bg-brand-500 text-xs font-medium text-white"></div>
+            <div className="relative block h-2 w-full max-w-[100px] rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: "23%" }}
+                transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+                className="absolute left-0 top-0 h-full rounded-full bg-brand-500"
+              />
             </div>
             <p className="font-medium text-gray-800 text-theme-sm dark:text-white/90">
               23%
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
